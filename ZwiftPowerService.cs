@@ -1,0 +1,435 @@
+﻿using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ZwiftPower
+{
+	public class ZwiftPowerService
+	{
+		private readonly HttpClient _httpClient;
+		private readonly JsonSerializer _serializer;
+		private readonly IConfiguration _config;
+
+		public HttpClient Client { get => _httpClient; }
+
+		public ZwiftPowerService(HttpClient httpClient, IConfiguration configuration)
+		{
+			_httpClient = httpClient;
+			_config = configuration;
+
+			var settings = new JsonSerializerSettings();
+			settings.Converters.Add(new UnixDateTimeConverter());
+
+			_serializer = JsonSerializer.Create(settings);
+		}
+
+		private static long UnixTicks { get { return (DateTime.UtcNow - DateTime.UnixEpoch).Ticks; } }
+
+		internal async Task<string> GetStreamData(string url)
+		{
+			using Stream stream = await _httpClient.GetStreamAsync(url);
+			using StreamReader streamReader = new StreamReader(stream);
+
+			return await streamReader.ReadToEndAsync();
+		}
+
+		internal async Task<T> DeserializeUrl<T>(string url)
+		{
+			using Stream stream = await _httpClient.GetStreamAsync(url);
+			using StreamReader streamReader = new StreamReader(stream);
+			using JsonReader reader = new JsonTextReader(streamReader);
+
+			return _serializer.Deserialize<T>(reader);
+		}
+
+		internal T DeserializeString<T>(string json)
+		{
+			using StringReader stringReader = new StringReader(json);
+			using JsonReader reader = new JsonTextReader(stringReader);
+
+			return _serializer.Deserialize<T>(reader);
+		}
+
+		public async Task Login()
+		{
+			using FormUrlEncodedContent content = new FormUrlEncodedContent(new Dictionary<string, string>
+			{
+				{ "username", _config["zwiftpowerUsername"] },
+				{ "password", _config["zwiftpowerPassword"] },
+				{ "redirect", "./index.php" },
+				{ "login", "" }
+			});
+
+			using var indexPage = await _httpClient.PostAsync("/ucp.php?mode=login", content);
+		}
+
+		internal class Data<T>
+		{
+			public T[] data;
+		}
+
+		internal class DataArray<T>
+		{
+			public T[][] data;
+		}
+
+		internal Task<TItem> ParseItemAsync<TItem>(string url) => DeserializeUrl<TItem>(url);
+
+		internal async Task<IEnumerable<T>> ParseListAsync<T>(string url)
+		{
+			var result = await DeserializeUrl<Data<T>>(url);
+
+			return result.data;
+		}
+
+		internal async Task<IEnumerable<T>> ParsePagedList<T>(string url)
+		{
+			var result = await DeserializeUrl<DataArray<T>>(url);
+
+			return result.data.SelectMany(results => results);
+		}
+
+		public async Task SubmitResultChanges(int eventId, IEnumerable<ResultSubmission> bumped, IEnumerable<ResultSubmission> disqualified)
+		{
+			await Login();
+
+			StringBuilder builder = new StringBuilder();
+
+			foreach (var bump in bumped)
+			{
+				builder.AppendLine($"{bump.CalculatedCategory}, {bump.Flag}, {bump.PowerType}, {bump.TeamId}, {bump.Name}, {bump.Id}, {bump.Uid}, {bump.Penalty}, ");
+			}
+
+			foreach (var dq in disqualified)
+			{
+				builder.AppendLine($"{dq.CalculatedCategory}, {dq.Flag}, {dq.PowerType}, {dq.TeamId}, {dq.Name}, {dq.Id}, {dq.Uid}, {dq.Penalty}, ");
+			}
+
+			// replace escapes: html decode, then url encode (url encode taken care of; just need HTML entities escaped, and strip commas)
+			using FormUrlEncodedContent content = new FormUrlEncodedContent(new Dictionary<string, string>
+			{
+				{ "edit_results", System.Net.WebUtility.HtmlDecode(builder.ToString()) }
+			});
+
+			await _httpClient.PostAsync($"/zz.php?do=edit_results&act=save&zwift_event_id={eventId}", content);
+		}
+
+		// API surface
+		public Task<IEnumerable<PendingRequest>> PendingRequestsAsync() => ParseListAsync<PendingRequest>("/api3.php?do=team_pending&id=4");
+
+		public Task<IEnumerable<Result>> ProfileResultsAsync(int zwid) => ParseListAsync<Result>($"/cache3/profile/{zwid}_all.json?_={UnixTicks}");
+
+		public Task<IEnumerable<Signup>> EventSignupsAsync(int zid) => ParseListAsync<Signup>($"/cache3/results/{zid}_signups.json?_={UnixTicks}");
+
+		public Task<IEnumerable<Events>> EventsAsync() => ParseListAsync<Events>("/cache3/lists/0_zwift_event_list_7.json");
+
+		public Task<IEnumerable<EventResult>> EventResultsAsync(int zid) => ParseListAsync<EventResult>($"/cache3/results/{zid}_view.json?_={UnixTicks}");
+
+		public Task<IEnumerable<FilteredResult>> FilteredResultsAsync(int zid) => ParseListAsync<FilteredResult>($"/cache3/results/{zid}_filtered.json?_={UnixTicks}");
+
+		public Task<IEnumerable<Member>> TeamMembersAsync() => ParseListAsync<Member>("/api3.php?do=team_riders&id=4");
+
+		public Task<IEnumerable<LiveResult>> LiveResultsAsync(int zid) => ParseListAsync<LiveResult>($"/...{zid}");
+
+		public Task<IEnumerable<Event>> EventAsync() => ParseListAsync<Event>("/cache3/lists/0_zwift_event_list_3.json");
+
+		public Task<IEnumerable<SeriesEvent>> SeriesEventsAsync(string series) => ParseListAsync<SeriesEvent>($"/api3.php?do=series_event_list&id={series}");
+
+		public Task<IEnumerable<Segment>> EventSegmentsAsync(int zid, string category) => ParseListAsync<Segment>($"/api3.php?do=event_primes&zid={zid}&category={category}&prime_type=msec");
+	}
+
+	public class ResultSubmission
+	{
+		public int Id;
+		public int TeamId;
+		public string EnteredCategory;
+		public string HistoricalCategory;
+		public string CalculatedCategory;
+		public string Name;
+		public string Flag;
+		public int PowerType;
+		public string Uid;
+		public int Penalty;
+	}
+
+	public class StringArrayConverter : JsonConverter<string[]>
+	{
+		public override string[] ReadJson(JsonReader reader, Type objectType, string[] existingValue, bool hasExistingValue, JsonSerializer serializer)
+		{
+			string s = (string)reader.Value;
+
+			return s.Split(',', ' ');
+		}
+
+		public override void WriteJson(JsonWriter writer, string[] value, JsonSerializer serializer)
+		{
+			throw new NotImplementedException();
+		}
+	}
+
+	public class IntArrayConverter : JsonConverter<int[]>
+	{
+		public override int[] ReadJson(JsonReader reader, Type objectType, int[] existingValue, bool hasExistingValue, JsonSerializer serializer)
+		{
+			string s = (string)reader.Value;
+
+			var values = s.Split(',', ' ');
+
+			return values.Select(it => int.Parse(it)).ToArray();
+		}
+
+		public override void WriteJson(JsonWriter writer, int[] value, JsonSerializer serializer)
+		{
+			throw new NotImplementedException();
+		}
+	}
+
+	public record PendingRequest(
+		string e,
+		string email,
+		string n,
+		string aid,
+		int tid,
+		string tname,
+		string tc,
+		string tbc,
+		string flag,
+		int?[] ftp,
+		float[] w,
+		int zwid
+	);
+
+	public record Result(
+		int zwid,
+		string zid,
+		string name,
+		string flag,
+		int? tid,
+		string tname,
+		string tc,
+		string tbc,
+		string tbd,
+		int? div,
+		int? divw,
+		bool male,
+		DateTime event_date,
+		int distance,
+		int[] avg_power,
+		float time_gun
+	);
+
+	public record SeriesEvent(
+		int DT_RowID,
+		[JsonConverter(typeof(StringArrayConverter))]
+		string[] cats,
+		string t,
+		DateTime tm,
+		int zid
+	);
+
+	public record Signup(
+		int? tid,
+		int zwid,
+		string name,
+		DateTime tm
+	);
+
+	public record Events(
+		string rt,
+		string t,
+		DateTime tm,
+		int zid
+	);
+
+	public record EventResultBase(
+		string category,
+		int div,
+		int divw,
+		string flag,
+		bool male,
+		DateTime event_date,
+		string name,
+		int pos,
+		int position_in_cat,
+		int power_type,
+		string tbc,
+		string tbd,
+		string tc,
+		int? tid,
+		string tname,
+		long uid,
+		int zid,
+		int zwid
+	);
+
+	public record EventResult(
+		string category,
+		int div,
+		int divw,
+		string flag,
+		bool male,
+		DateTime event_date,
+		string name,
+		int pos,
+		int position_in_cat,
+		float[] time,
+		float time_gun,
+		int power_type,
+		string tbc,
+		string tbd,
+		string tc,
+		int? tid,
+		string tname,
+		long uid,
+		int[] wftp,
+		float[] wkg_ftp,
+		int zid,
+		int zwid
+	)
+	: EventResultBase(category, div, divw, flag, male, event_date, name, pos, position_in_cat, power_type, tbc, tbd, tc, tid, tname, uid, zid, zwid)
+	{
+		// we need to return a *new* instance here, otherwise it will use EventResult equality, *not* EventResultBase equality
+		public EventResultBase Base() => new EventResultBase(category, div, divw, flag, male, event_date, name, pos, position_in_cat, power_type, tbc, tbd, tc, tid, tname, uid, zid, zwid);
+	}
+
+	public record Member(
+		int div,
+		int divw,
+		string email,
+		int age,
+		string aid,
+		int climbed,
+		int distance,
+		int energy,
+		string flag,
+		string[] ftp,
+		string h_15_watts,
+		string h_15_wkg,
+		string h_1200_watts,
+		string h_1200_wkg,
+		string name,
+		string r,
+		string rank,
+		int reg,
+		int skill,
+		int skill_power,
+		int skill_seg,
+		string status,
+		int time,
+		string[] w,
+		int zada,
+		int zwid
+	);
+
+	public record LiveResult(
+		int position,
+		int pos_in_grp,
+		int time_diff,
+		int time_diff_cat,
+		int div,
+		bool male,
+		string name
+	);
+
+	public record Event(
+		int zid,
+		DateTime tm
+	);
+
+	public record FilteredResult(
+		 string category,
+		 int div,
+		 int divw,
+		 string flag,
+		 bool male,
+		 string name,
+		 string note,
+		 int power_type,
+		 string tbc,
+		 string tbd,
+		 string tc,
+		 int? tid,
+		 float[] time,
+		 float time_gun,
+		 string tname,
+		 long uid,
+		 int?[] w5,
+		 int?[] w15,
+		 int?[] w30,
+		 int?[] w60,
+		 int?[] w120,
+		 int?[] w300,
+		 int?[] w1200,
+		 float[] weight,
+		 int[] wftp,
+		 float?[] wkg5,
+		 float?[] wkg15,
+		 float?[] wkg30,
+		 float?[] wkg60,
+		 float?[] wkg120,
+		 float?[] wkg300,
+		 float?[] wkg1200,
+		 float[] wkg_ftp,
+		 bool wkg_guess,
+		 int zid,
+		 int zwid
+	);
+
+	public record Segment(
+		int id,
+		int lap,
+		string name,
+		int sprint_id,
+		SegmentRider rider_1,
+		SegmentRider rider_2,
+		SegmentRider rider_3,
+		SegmentRider rider_4,
+		SegmentRider rider_5,
+		SegmentRider rider_6,
+		SegmentRider rider_7,
+		SegmentRider rider_8,
+		SegmentRider rider_9,
+		SegmentRider rider_10
+	)
+	{
+		public List<SegmentRider> riders
+		{
+			get
+			{
+				var riders = new SegmentRider[] {
+					rider_1, rider_2, rider_3, rider_4, rider_5, rider_6, rider_7, rider_8, rider_9, rider_10
+				};
+
+				return riders.Where(rider => rider != null).ToList();
+			}
+		}
+	}
+
+	public record SegmentRider(
+		int age,
+		int div,
+		int divw,
+		float elapsed,
+		float elapsed_diff,
+		string flag,
+		int ftp,
+		string gender,
+		int msec,
+		float msec_diff,
+		string name,
+		string tbc,
+		string tbd,
+		string tc,
+		int tid,
+		string tname,
+		float w,
+		int zwid
+	);
+}
