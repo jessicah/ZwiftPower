@@ -1,12 +1,13 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace ZwiftPower
@@ -14,7 +15,7 @@ namespace ZwiftPower
 	public class ZwiftPowerService
 	{
 		private readonly HttpClient _httpClient;
-		private readonly JsonSerializer _serializer;
+		private readonly JsonSerializerOptions _options;
 		private readonly IConfiguration _config;
 
 		public HttpClient Client { get => _httpClient; }
@@ -24,38 +25,28 @@ namespace ZwiftPower
 			_httpClient = httpClient;
 			_config = configuration;
 
-			var settings = new JsonSerializerSettings();
-			settings.Converters.Add(new UnixDateTimeConverter());
+			_options = new JsonSerializerOptions
+			{
+				NumberHandling = JsonNumberHandling.AllowReadingFromString,
+				IncludeFields = true
+			};
 
-			_serializer = JsonSerializer.Create(settings);
+			_options.Converters.Add(new UnixDateTimeConverter());
+			_options.Converters.Add(new NumberBooleanConverter());
+			_options.Converters.Add(new NullableNumberAsStringConverter());
+			_options.Converters.Add(new IntAsStringArrayConverter());
 		}
 
 		private static long UnixTicks { get { return (DateTime.UtcNow - DateTime.UnixEpoch).Ticks; } }
 
-		internal async Task<string> GetStreamData(string url)
-		{
-			using Stream stream = await _httpClient.GetStreamAsync(url);
-			using StreamReader streamReader = new StreamReader(stream);
-
-			return await streamReader.ReadToEndAsync();
-		}
+		internal Task<string> GetStreamData(string url) => _httpClient.GetStringAsync(url);
 
 		internal async Task<T> DeserializeUrl<T>(string url)
 		{
-			using Stream stream = await _httpClient.GetStreamAsync(url);
-			using StreamReader streamReader = new StreamReader(stream);
-			using JsonReader reader = new JsonTextReader(streamReader);
-
-			return _serializer.Deserialize<T>(reader);
+			return await _httpClient.GetFromJsonAsync<T>(url, _options);
 		}
 
-		internal T DeserializeString<T>(string json)
-		{
-			using StringReader stringReader = new StringReader(json);
-			using JsonReader reader = new JsonTextReader(stringReader);
-
-			return _serializer.Deserialize<T>(reader);
-		}
+		internal T DeserializeString<T>(string json) => JsonSerializer.Deserialize<T>(json);
 
 		public async Task Login()
 		{
@@ -159,38 +150,6 @@ namespace ZwiftPower
 		public int Penalty;
 	}
 
-	public class StringArrayConverter : JsonConverter<string[]>
-	{
-		public override string[] ReadJson(JsonReader reader, Type objectType, string[] existingValue, bool hasExistingValue, JsonSerializer serializer)
-		{
-			string s = (string)reader.Value;
-
-			return s.Split(',', ' ');
-		}
-
-		public override void WriteJson(JsonWriter writer, string[] value, JsonSerializer serializer)
-		{
-			throw new NotImplementedException();
-		}
-	}
-
-	public class IntArrayConverter : JsonConverter<int[]>
-	{
-		public override int[] ReadJson(JsonReader reader, Type objectType, int[] existingValue, bool hasExistingValue, JsonSerializer serializer)
-		{
-			string s = (string)reader.Value;
-
-			var values = s.Split(',', ' ');
-
-			return values.Select(it => int.Parse(it)).ToArray();
-		}
-
-		public override void WriteJson(JsonWriter writer, int[] value, JsonSerializer serializer)
-		{
-			throw new NotImplementedException();
-		}
-	}
-
 	public record PendingRequest(
 		string e,
 		string email,
@@ -227,8 +186,7 @@ namespace ZwiftPower
 
 	public record SeriesEvent(
 		int DT_RowID,
-		[JsonConverter(typeof(StringArrayConverter))]
-		string[] cats,
+		string cats,
 		string t,
 		DateTime tm,
 		int zid
@@ -309,7 +267,7 @@ namespace ZwiftPower
 		int distance,
 		int energy,
 		string flag,
-		string[] ftp,
+		int[] ftp,
 		string h_15_watts,
 		string h_15_wkg,
 		string h_1200_watts,
@@ -323,7 +281,7 @@ namespace ZwiftPower
 		int skill_seg,
 		string status,
 		int time,
-		string[] w,
+		float[] w,
 		int zada,
 		int zwid
 	);
@@ -421,7 +379,7 @@ namespace ZwiftPower
 		string flag,
 		int ftp,
 		string gender,
-		int msec,
+		long msec,
 		float msec_diff,
 		string name,
 		string tbc,
