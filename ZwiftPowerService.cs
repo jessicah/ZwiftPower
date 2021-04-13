@@ -50,6 +50,15 @@ namespace ZwiftPower
 
 		public async Task Login()
 		{
+			if (string.IsNullOrEmpty(_config["zwiftpowerUsername"]))
+			{
+				throw new ArgumentException("ZwiftPower Username is required to login", "zwiftpowerUsername");
+			}
+			if (string.IsNullOrEmpty(_config["zwiftpowerPassword"]))
+			{
+				throw new ArgumentException("ZwiftPower password is required to login", "zwiftpowerPassword");
+			}
+
 			using FormUrlEncodedContent content = new FormUrlEncodedContent(new Dictionary<string, string>
 			{
 				{ "username", _config["zwiftpowerUsername"] },
