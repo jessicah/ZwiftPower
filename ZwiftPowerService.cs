@@ -50,19 +50,19 @@ namespace ZwiftPower
 
 		public async Task Login()
 		{
-			if (string.IsNullOrEmpty(_config["zwiftpowerUsername"]))
+			if (string.IsNullOrEmpty(_config["Zwiftpower:Username"]))
 			{
-				throw new ArgumentException("ZwiftPower Username is required to login", "zwiftpowerUsername");
+				throw new ArgumentException("ZwiftPower Username is required to login", "Zwiftpower:Username");
 			}
-			if (string.IsNullOrEmpty(_config["zwiftpowerPassword"]))
+			if (string.IsNullOrEmpty(_config["Zwiftpower:Password"]))
 			{
-				throw new ArgumentException("ZwiftPower password is required to login", "zwiftpowerPassword");
+				throw new ArgumentException("ZwiftPower password is required to login", "Zwiftpower:Password");
 			}
 
 			using FormUrlEncodedContent content = new FormUrlEncodedContent(new Dictionary<string, string>
 			{
-				{ "username", _config["zwiftpowerUsername"] },
-				{ "password", _config["zwiftpowerPassword"] },
+				{ "username", _config["Zwiftpower:Username"] },
+				{ "password", _config["Zwiftpower:Password"] },
 				{ "redirect", "./index.php" },
 				{ "login", "" }
 			});
