@@ -270,6 +270,9 @@ namespace ZwiftPower
 	{
 		// we need to return a *new* instance here, otherwise it will use EventResult equality, *not* EventResultBase equality
 		public EventResultBase Base() => new EventResultBase(category, div, divw, flag, male, event_date, name, pos, position_in_cat, power_type, tbc, tbd, tc, tid, tname, uid, zid, zwid);
+
+		public static bool SequenceEqual(IEnumerable<EventResult> left, IEnumerable<EventResult> right)
+			=> Enumerable.SequenceEqual(left.Select(item => item.Base()), right.Select(item => item.Base()));
 	}
 
 	public record Member(
