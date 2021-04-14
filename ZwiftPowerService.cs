@@ -72,12 +72,18 @@ namespace ZwiftPower
 
 		internal class Data<T>
 		{
+#pragma warning disable 0649 // used by JSON deserialization
 			public T[] data;
+#pragma warning restore 0649
+
 		}
 
 		internal class DataArray<T>
 		{
+#pragma warning disable 0649 // used by JSON deserialization
 			public T[][] data;
+#pragma warning restore 0649
+
 		}
 
 		internal Task<TItem> ParseItemAsync<TItem>(string url) => DeserializeUrl<TItem>(url);
