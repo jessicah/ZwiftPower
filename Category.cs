@@ -1,19 +1,32 @@
-﻿namespace ZwiftPower
+﻿using System;
+
+namespace ZwiftPower
 {
-	public enum Category { A = 5, B = 4, C = 3, D = 2, Unknown = 1 };
+	public enum Category
+	{
+		A = 10,
+		B = 9,
+		C = 8,
+		D = 7,
+		E = 6,
+		F = 5,
+		G = 4,
+		H = 3,
+		I = 2,
+		J = 1,
+		Unknown = 0
+	};
 
 	public static class CategoryHelper
 	{
 		public static Category FromString(string category)
 		{
-			return category switch
+			if (Enum.TryParse<Category>(category, out var cat) == false)
 			{
-				"A" => Category.A,
-				"B" => Category.B,
-				"C" => Category.C,
-				"D" => Category.D,
-				_ => Category.Unknown
-			};
+				return Category.Unknown;
+			}
+
+			return cat;
 		}
 
 		public static Category FromDivision(int division)
