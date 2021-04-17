@@ -219,7 +219,11 @@ namespace ZwiftPower
 		string t,
 		DateTime tm,
 		int zid
-	);
+	)
+	{
+		public string RouteName { get => Routes.RouteNames[rt]; }
+		public Uri RouteLink { get => new Uri(Routes.RouteLinks[rt]); }
+	}
 
 	public record EventResultBase(
 		string category,
@@ -386,6 +390,12 @@ namespace ZwiftPower
 				return riders.Where(rider => rider != null).ToList();
 			}
 		}
+
+		public bool IsLap { get => Segments.Laps.Contains((Segments.Segment)sprint_id); }
+		public bool IsClimb { get => Segments.Climbs.Contains((Segments.Segment)sprint_id); }
+		public bool IsSprint { get => Segments.Sprints.Contains((Segments.Segment)sprint_id); }
+
+		public Segments.Segment Value { get => (Segments.Segment)sprint_id; }
 	}
 
 	public record SegmentRider(
