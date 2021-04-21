@@ -1,7 +1,6 @@
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -39,11 +38,35 @@ namespace ZwiftPower
 
 		private static long UnixTicks { get { return (DateTime.UtcNow - DateTime.UnixEpoch).Ticks; } }
 
-		internal Task<string> GetStreamData(string url) => _httpClient.GetStringAsync(url);
-
 		internal async Task<T> DeserializeUrl<T>(string url)
 		{
-			return await _httpClient.GetFromJsonAsync<T>(url, _options);
+			int retries = 10;
+
+			Exception lastException = null;
+
+			while (retries-- > 0)
+			{
+				try
+				{
+					return await _httpClient.GetFromJsonAsync<T>(url, _options);
+				}
+				catch (JsonException exn)
+				{
+					// usually because we're not logged in
+					await Login();
+
+					lastException = exn;
+				}
+				catch (HttpRequestException exn)
+				{
+					// maybe ZwiftPower is down, wait 30 seconds
+					await Task.Delay(30000);
+
+					lastException = exn;
+				}
+			}
+
+			throw new TimeoutException($"Exceeded ZwiftPower retries for url: {url}", lastException);
 		}
 
 		internal T DeserializeString<T>(string json) => JsonSerializer.Deserialize<T>(json);
