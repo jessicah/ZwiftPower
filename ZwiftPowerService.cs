@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -242,6 +242,8 @@ namespace ZwiftPower
 		int? tid,
 		string tname,
 		long uid,
+		float vtta,
+		float vttat,
 		int zid,
 		int zwid
 	);
@@ -265,15 +267,17 @@ namespace ZwiftPower
 		int? tid,
 		string tname,
 		long uid,
+		float vtta,
+		float vttat,
 		int[] wftp,
 		float[] wkg_ftp,
 		int zid,
 		int zwid
 	)
-	: EventResultBase(category, div, divw, flag, male, event_date, name, pos, position_in_cat, power_type, tbc, tbd, tc, tid, tname, uid, zid, zwid)
+	: EventResultBase(category, div, divw, flag, male, event_date, name, pos, position_in_cat, power_type, tbc, tbd, tc, tid, tname, uid, vtta, vttat, zid, zwid)
 	{
 		// we need to return a *new* instance here, otherwise it will use EventResult equality, *not* EventResultBase equality
-		public EventResultBase Base() => new EventResultBase(category, div, divw, flag, male, event_date, name, pos, position_in_cat, power_type, tbc, tbd, tc, tid, tname, uid, zid, zwid);
+		public EventResultBase Base() => new EventResultBase(category, div, divw, flag, male, event_date, name, pos, position_in_cat, power_type, tbc, tbd, tc, tid, tname, uid, vtta, vttat, zid, zwid);
 
 		public static bool SequenceEqual(IEnumerable<EventResult> left, IEnumerable<EventResult> right)
 			=> Enumerable.SequenceEqual(left.Select(item => item.Base()), right.Select(item => item.Base()));
