@@ -1,4 +1,4 @@
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,7 +42,7 @@ namespace ZwiftPower
 		internal async Task<T> DeserializeUrl<T>(string url)
 		{
 			int retries = 10;
-
+			bool loggedIn = false;
 			Exception lastException = null;
 
 			while (retries-- > 0)
@@ -53,17 +53,27 @@ namespace ZwiftPower
 				}
 				catch (JsonException exn)
 				{
-					// usually because we're not logged in
-					await Login();
+					if (exn.BytePositionInLine == 0 && exn.LineNumber == 0)
+					{
+						// usually a good indication that we're not logged in
+						if (!loggedIn)
+						{
+							await Login();
 
-					lastException = exn;
+							loggedIn = true;
+
+							continue;
+						}
+					}
+
+					throw;
 				}
 				catch (HttpRequestException exn)
 				{
-					// maybe ZwiftPower is down, wait 30 seconds
-					await Task.Delay(30000);
-
 					lastException = exn;
+
+					// maybe ZwiftPower is down, wait for a minute
+					await Task.Delay(60 * 1000);
 				}
 			}
 
