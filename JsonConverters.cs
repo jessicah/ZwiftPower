@@ -98,6 +98,31 @@ namespace ZwiftPower
 		}
 	}
 
+	public class NullableFloatAsStringConverter : JsonConverter<float?>
+	{
+		public override float? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+		{
+			if (reader.TokenType == JsonTokenType.Number)
+			{
+				return reader.GetSingle();
+			}
+
+			if (reader.TokenType == JsonTokenType.String)
+			{
+				var value = reader.GetString();
+
+				return value == string.Empty ? null : float.Parse(value);
+			}
+
+			throw new JsonException("Expected empty string or number");
+		}
+
+		public override void Write(Utf8JsonWriter writer, float? value, JsonSerializerOptions options)
+		{
+			throw new NotImplementedException();
+		}
+	}
+
 	public class IntAsStringArrayConverter : JsonConverter<int[]>
 	{
 		public override int[] Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)

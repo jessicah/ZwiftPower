@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +33,7 @@ namespace ZwiftPower
 			_options.Converters.Add(new UnixDateTimeConverter());
 			_options.Converters.Add(new NumberBooleanConverter());
 			_options.Converters.Add(new NullableNumberAsStringConverter());
+			_options.Converters.Add(new NullableFloatAsStringConverter());
 			_options.Converters.Add(new IntAsStringArrayConverter());
 		}
 
@@ -265,7 +266,7 @@ namespace ZwiftPower
 		int? tid,
 		string tname,
 		long uid,
-		float vtta,
+		float? vtta,
 		float vttat,
 		int zid,
 		int zwid
@@ -290,7 +291,7 @@ namespace ZwiftPower
 		int? tid,
 		string tname,
 		long uid,
-		float vtta,
+		float? vtta,
 		float vttat,
 		int[] wftp,
 		float[] wkg_ftp,
