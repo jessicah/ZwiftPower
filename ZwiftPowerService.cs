@@ -16,7 +16,7 @@ namespace ZwiftPower
 		private readonly HttpClient _httpClient;
 		private readonly JsonSerializerOptions _options;
 		private readonly IConfiguration _config;
-
+		
 		public HttpClient Client { get => _httpClient; }
 
 		public ZwiftPowerService(HttpClient httpClient, IConfiguration configuration)
@@ -249,14 +249,14 @@ namespace ZwiftPower
 	);
 
 	public record Events(
-		string rt,
+		uint rt,
 		string t,
 		DateTime tm,
 		int zid
 	)
 	{
-		public string RouteName { get => Routes.RouteNames[rt]; }
-		public Uri RouteLink { get => new Uri(Routes.RouteLinks[rt]); }
+		public string RouteName { get => Routes.Names[rt]; }
+		public Uri RouteLink { get => new Uri(Routes.Links[rt]); }
 	}
 
 	public record EventResultBase(
