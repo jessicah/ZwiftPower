@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text.Json;
 
 namespace ZwiftPower
@@ -22,8 +24,10 @@ namespace ZwiftPower
 		static Routes()
 		{
 			// Fetched from https://www.zwift.com/zwift-web-pages/gamedictionary
-			var json = System.IO.File.ReadAllText("GameDictionary.json");
-			var dictionary = JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(json);
+			HttpClient httpClient = new HttpClient();
+			var task = httpClient.GetFromJsonAsync<Dictionary<string, JsonElement>>("https://www.zwift.com/zwift-web-pages/gamedictionary");
+			task.Wait();
+			var dictionary = task.Result;
 
 			var gameDictionary = dictionary["GameDictionary"];
 
@@ -201,7 +205,15 @@ namespace ZwiftPower
 				{ 1386460176, "https://zwiftinsider.com/route/ocean-lava-cliffside-loop/" },
 				{ 2474227587, "https://zwiftinsider.com/route/beach-island-loop/" },
 				{ 2829629527, "https://zwiftinsider.com/route/serpentine-8/" },
-				{ 3312037616, "https://zwiftinsider.com/route/two-bridges-loop/" }
+				{ 3312037616, "https://zwiftinsider.com/route/two-bridges-loop/" },
+				{ 525689100, "https://zwiftinsider.com/route/countryside-tour/" },
+				{ 1562187590, "https://zwiftinsider.com/route/kappa-quest/" },
+				{ 2653858696, "https://zwiftinsider.com/route/two-village-loop/" },
+				{ 3282611437, "https://zwiftinsider.com/route/flatland-loop/" },
+				{ 3379779247, "https://zwiftinsider.com/route/three-village-loop/" },
+				{ 3523806426, "https://zwiftinsider.com/route/spirit-forest/" },
+				{ 3603635554, "https://zwiftinsider.com/route/sea-to-tree/" },
+				{ 3691918883, "https://zwiftinsider.com/route/chain-chomper/" }
 			};
 
 			foreach (var kv in Names)

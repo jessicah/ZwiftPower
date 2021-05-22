@@ -320,6 +320,27 @@
           },
           {
             "$": {
+              "ascentInMeters": "185.2",
+              "blockedForMeetups": "0",
+              "distanceBetweenFirstLastLrCPsInMeters": "23.7",
+              "distanceInMeters": "15849.5",
+              "eventOnly": "0",
+              "eventPaddocks": "1,2,3,4,5",
+              "imageName": "MAKURIISLANDS_Countryside_Tour",
+              "leadinAscentInMeters": "0.2",
+              "leadinDistanceInMeters": "230.2",
+              "levelLocked": "0",
+              "locKey": "LOC_ROUTE_JAPAN_COUNTRYSIDE_TOUR",
+              "map": "MAKURIISLANDS",
+              "name": "Countryside Tour",
+              "sports": "3",
+              "supportedLaps": "1",
+              "supportsTimeTrialMode": "0",
+              "signature": "525689100"
+            }
+          },
+          {
+            "$": {
               "ascentInMeters": "254.0",
               "blockedForMeetups": "0",
               "distanceBetweenFirstLastLrCPsInMeters": "126.7",
@@ -971,6 +992,27 @@
           },
           {
             "$": {
+              "ascentInMeters": "139.9",
+              "blockedForMeetups": "0",
+              "distanceBetweenFirstLastLrCPsInMeters": "52.0",
+              "distanceInMeters": "9085.1",
+              "eventOnly": "0",
+              "eventPaddocks": "6,7,8,9",
+              "imageName": "MAKURIISLANDS_Kappa_Quest",
+              "leadinAscentInMeters": "121.6",
+              "leadinDistanceInMeters": "3896.1",
+              "levelLocked": "0",
+              "locKey": "LOC_ROUTE_JAPAN_KAPPA_QUEST",
+              "map": "MAKURIISLANDS",
+              "name": "Kappa Quest",
+              "sports": "3",
+              "supportedLaps": "1",
+              "supportsTimeTrialMode": "0",
+              "signature": "1562187590"
+            }
+          },
+          {
+            "$": {
               "ascentInMeters": "53.5",
               "blockedForMeetups": "0",
               "distanceBetweenFirstLastLrCPsInMeters": "259.5",
@@ -1580,6 +1622,27 @@
           },
           {
             "$": {
+              "ascentInMeters": "88.2",
+              "blockedForMeetups": "0",
+              "distanceBetweenFirstLastLrCPsInMeters": "66.8",
+              "distanceInMeters": "12804.3",
+              "eventOnly": "0",
+              "eventPaddocks": "1,2,3,4,5",
+              "imageName": "MAKURIISLANDS_Two_Village_Loop",
+              "leadinAscentInMeters": "0.2",
+              "leadinDistanceInMeters": "273.2",
+              "levelLocked": "0",
+              "locKey": "LOC_ROUTE_JAPAN_TWO_VILLAGE_LOOP",
+              "map": "MAKURIISLANDS",
+              "name": "Two Village Loop",
+              "sports": "1",
+              "supportedLaps": "1",
+              "supportsTimeTrialMode": "0",
+              "signature": "2653858696"
+            }
+          },
+          {
+            "$": {
               "ascentInMeters": "1045.8",
               "blockedForMeetups": "0",
               "distanceBetweenFirstLastLrCPsInMeters": "0.0",
@@ -1981,13 +2044,13 @@
             "$": {
               "ascentInMeters": "0.0",
               "blockedForMeetups": "0",
-              "distanceBetweenFirstLastLrCPsInMeters": "12.7",
-              "distanceInMeters": "412.4",
+              "distanceBetweenFirstLastLrCPsInMeters": "12.6",
+              "distanceInMeters": "400.3",
               "eventOnly": "0",
               "eventPaddocks": "116",
               "imageName": "WATOPIA_May_Field",
               "leadinAscentInMeters": "0.0",
-              "leadinDistanceInMeters": "49.0",
+              "leadinDistanceInMeters": "48.7",
               "levelLocked": "0",
               "locKey": "LOC_ROUTE_WATOPIA_MAY_FIELD",
               "map": "WATOPIA",
@@ -2084,6 +2147,27 @@
           },
           {
             "$": {
+              "ascentInMeters": "99.1",
+              "blockedForMeetups": "0",
+              "distanceBetweenFirstLastLrCPsInMeters": "1.2",
+              "distanceInMeters": "12987.6",
+              "eventOnly": "0",
+              "eventPaddocks": "1,2,3,4,5",
+              "imageName": "MAKURIISLANDS_Flatland_Loop",
+              "leadinAscentInMeters": "0.2",
+              "leadinDistanceInMeters": "207.5",
+              "levelLocked": "0",
+              "locKey": "LOC_ROUTE_JAPAN_FLATLAND_LOOP",
+              "map": "MAKURIISLANDS",
+              "name": "Flatland Loop",
+              "sports": "3",
+              "supportedLaps": "1",
+              "supportsTimeTrialMode": "0",
+              "signature": "3282611437"
+            }
+          },
+          {
+            "$": {
               "ascentInMeters": "80.7",
               "blockedForMeetups": "0",
               "distanceBetweenFirstLastLrCPsInMeters": "284.0",
@@ -2143,6 +2227,27 @@
               "supportedLaps": "1",
               "supportsTimeTrialMode": "0",
               "signature": "3366225080"
+            }
+          },
+          {
+            "$": {
+              "ascentInMeters": "92.6",
+              "blockedForMeetups": "0",
+              "distanceBetweenFirstLastLrCPsInMeters": "47.2",
+              "distanceInMeters": "10553.8",
+              "eventOnly": "0",
+              "eventPaddocks": "6,7,8,9,10",
+              "imageName": "MAKURIISLANDS_Three_Village_Loop",
+              "leadinAscentInMeters": "5.3",
+              "leadinDistanceInMeters": "2419.3",
+              "levelLocked": "0",
+              "locKey": "LOC_ROUTE_JAPAN_THREE_VILLAGE_LOOP",
+              "map": "MAKURIISLANDS",
+              "name": "Three Village Loop",
+              "sports": "1",
+              "supportedLaps": "1",
+              "supportsTimeTrialMode": "0",
+              "signature": "3379779247"
             }
           },
           {
@@ -2210,6 +2315,27 @@
           },
           {
             "$": {
+              "ascentInMeters": "134.8",
+              "blockedForMeetups": "0",
+              "distanceBetweenFirstLastLrCPsInMeters": "25.4",
+              "distanceInMeters": "8447.6",
+              "eventOnly": "0",
+              "eventPaddocks": "6,7,8,9",
+              "imageName": "MAKURIISLANDS_Spirit_Forest",
+              "leadinAscentInMeters": "122.0",
+              "leadinDistanceInMeters": "4650.6",
+              "levelLocked": "0",
+              "locKey": "LOC_ROUTE_JAPAN_SPIRIT_FOREST",
+              "map": "MAKURIISLANDS",
+              "name": "Spirit Forest",
+              "sports": "3",
+              "supportedLaps": "1",
+              "supportsTimeTrialMode": "0",
+              "signature": "3523806426"
+            }
+          },
+          {
+            "$": {
               "ascentInMeters": "431.0",
               "blockedForMeetups": "0",
               "distanceBetweenFirstLastLrCPsInMeters": "0.0",
@@ -2269,6 +2395,27 @@
               "supportedLaps": "1",
               "supportsTimeTrialMode": "0",
               "signature": "3599973269"
+            }
+          },
+          {
+            "$": {
+              "ascentInMeters": "107.5",
+              "blockedForMeetups": "0",
+              "distanceBetweenFirstLastLrCPsInMeters": "0.0",
+              "distanceInMeters": "3272.8",
+              "eventOnly": "0",
+              "eventPaddocks": "6,7,8,9",
+              "imageName": "MAKURIISLANDS_Sea_to_Tree",
+              "leadinAscentInMeters": "13.8",
+              "leadinDistanceInMeters": "572.1",
+              "levelLocked": "0",
+              "locKey": "LOC_ROUTE_JAPAN_SEA_TO_TREE",
+              "map": "MAKURIISLANDS",
+              "name": "Sea to Tree",
+              "sports": "3",
+              "supportedLaps": "0",
+              "supportsTimeTrialMode": "0",
+              "signature": "3603635554"
             }
           },
           {
@@ -2353,6 +2500,27 @@
               "supportedLaps": "1",
               "supportsTimeTrialMode": "0",
               "signature": "3687251774"
+            }
+          },
+          {
+            "$": {
+              "ascentInMeters": "184.2",
+              "blockedForMeetups": "0",
+              "distanceBetweenFirstLastLrCPsInMeters": "46.6",
+              "distanceInMeters": "13603.9",
+              "eventOnly": "0",
+              "eventPaddocks": "6,7,8,9,10",
+              "imageName": "MAKURIISLANDS_Chain_Chomper",
+              "leadinAscentInMeters": "5.3",
+              "leadinDistanceInMeters": "2418.7",
+              "levelLocked": "0",
+              "locKey": "LOC_ROUTE_JAPAN_CHAIN_CHOMPER",
+              "map": "MAKURIISLANDS",
+              "name": "Chain Chomper",
+              "sports": "3",
+              "supportedLaps": "1",
+              "supportsTimeTrialMode": "0",
+              "signature": "3691918883"
             }
           },
           {
@@ -2902,6 +3070,13 @@
           },
           {
             "$": {
+              "imageName": "CrohnsColitis2021_thumb",
+              "name": "Crohn's & Colitis Foundation",
+              "signature": "83047882"
+            }
+          },
+          {
+            "$": {
               "imageName": "WTRL2020_thumb",
               "name": "WTRL",
               "signature": "84221876"
@@ -3126,6 +3301,13 @@
           },
           {
             "$": {
+              "imageName": "CycleSmart2021_thumb",
+              "name": "Cycle-Smart",
+              "signature": "257930879"
+            }
+          },
+          {
+            "$": {
               "imageName": "Continental2018_thumb",
               "name": "Continental",
               "signature": "273275384"
@@ -3241,6 +3423,13 @@
               "imageName": "PeaksCoachingGroup_thumb",
               "name": "Peaks Coaching Group",
               "signature": "374392241"
+            }
+          },
+          {
+            "$": {
+              "imageName": "Tower262021_thumb",
+              "name": "Tower 26 Triathlon",
+              "signature": "405683158"
             }
           },
           {
@@ -3612,6 +3801,13 @@
               "imageName": "AlienWare_thumb",
               "name": "AlienWare",
               "signature": "773720424"
+            }
+          },
+          {
+            "$": {
+              "imageName": "NovatorGreen2021_thumb",
+              "name": "Norvator Green",
+              "signature": "774250347"
             }
           },
           {
@@ -4155,6 +4351,13 @@
           },
           {
             "$": {
+              "imageName": "Velosport2021_thumb",
+              "name": "Velosport",
+              "signature": "1294362827"
+            }
+          },
+          {
+            "$": {
               "imageName": "ZwiftNationalChampions_thumb",
               "name": "ZNC - Norway",
               "signature": "1294918791"
@@ -4436,7 +4639,7 @@
           {
             "$": {
               "imageName": "BRTWomens2019_thumb",
-              "name": "Bolt Race Team Women",
+              "name": "Bolt Race Team Hellcatz",
               "signature": "1561591671"
             }
           },
@@ -4715,6 +4918,13 @@
           },
           {
             "$": {
+              "imageName": "BestBuddies2021_thumb",
+              "name": "Best Buddies International",
+              "signature": "1857854426"
+            }
+          },
+          {
+            "$": {
               "imageName": "Plain_03_thumb",
               "name": "Basic 2",
               "signature": "1869390707"
@@ -4928,6 +5138,13 @@
               "imageName": "MTN-Qhubeka_thumb",
               "name": "MTN-Qhubeka",
               "signature": "2115002683"
+            }
+          },
+          {
+            "$": {
+              "imageName": "RaphaRCC2021_thumb",
+              "name": "Rapha RCC",
+              "signature": "2115369870"
             }
           },
           {
@@ -5173,6 +5390,13 @@
               "imageName": "BlackSheepManRide2019_thumb",
               "name": "Black Sheep Man Ride",
               "signature": "2426765558"
+            }
+          },
+          {
+            "$": {
+              "imageName": "TrekFactoryRacingWomensMTB2021_thumb",
+              "name": "Trek Factory Racing Women",
+              "signature": "2431411798"
             }
           },
           {
@@ -5583,6 +5807,13 @@
           },
           {
             "$": {
+              "imageName": "OVS2021_thumb",
+              "name": "2021 Virtual Series Kit",
+              "signature": "2856076954"
+            }
+          },
+          {
+            "$": {
               "imageName": "Downing2021_thumb",
               "name": "Downing Cycling Donny Chaingang",
               "signature": "2879713688"
@@ -5870,6 +6101,13 @@
           },
           {
             "$": {
+              "imageName": "OVS2021_thumb",
+              "name": "2021 Virtual Series Kit",
+              "signature": "3196604495"
+            }
+          },
+          {
+            "$": {
               "imageName": "ZwiftNationalChampions_thumb",
               "name": "ZNC - Great Britain",
               "signature": "3203180937"
@@ -6094,6 +6332,13 @@
           },
           {
             "$": {
+              "imageName": "NovoNordisk_thumb",
+              "name": "Team Novo Nordisk",
+              "signature": "3375581593"
+            }
+          },
+          {
+            "$": {
               "imageName": "USAC_thumb",
               "name": "USAC Elite",
               "signature": "3382526362"
@@ -6199,6 +6444,13 @@
           },
           {
             "$": {
+              "imageName": "Enshored2021_thumb",
+              "name": "Enshored",
+              "signature": "3446412723"
+            }
+          },
+          {
+            "$": {
               "imageName": "Specialized_thumb",
               "name": "Specialized M",
               "signature": "3450131175"
@@ -6216,6 +6468,13 @@
               "imageName": "SchleckGranFondo2018_thumb",
               "name": "Schleck Gran Fondo",
               "signature": "3459652898"
+            }
+          },
+          {
+            "$": {
+              "imageName": "PrideOn2021_thumb",
+              "name": "2021 Pride On Cycling Jersey",
+              "signature": "3459897545"
             }
           },
           {
@@ -6515,7 +6774,7 @@
           {
             "$": {
               "imageName": "BRTMens2019_thumb",
-              "name": "Bolt Race Team Men",
+              "name": "Bolt Race Team",
               "signature": "3750784950"
             }
           },
@@ -7127,6 +7386,13 @@
               "name": "Team TFC",
               "signature": "4266694480"
             }
+          },
+          {
+            "$": {
+              "imageName": "TrekFactoryRacingMensMTB2021_thumb",
+              "name": "Trek Factory Racing Men",
+              "signature": "4283763318"
+            }
           }
         ]
       }
@@ -7384,6 +7650,13 @@
               "imageName": "CollinsCupRunRed2020_thumb",
               "name": "Collins Cup USA",
               "signature": "1678310140"
+            }
+          },
+          {
+            "$": {
+              "imageName": "ZwiftAcademyRun2021_thumb",
+              "name": "ZA Run Team Shirt 2021",
+              "signature": "1689637021"
             }
           },
           {
@@ -7699,6 +7972,13 @@
               "imageName": "SuperLeague2020_thumb",
               "name": "Super League Green",
               "signature": "3442834429"
+            }
+          },
+          {
+            "$": {
+              "imageName": "PrideOn2021_thumb",
+              "name": "2021 Pride On Run Shirt",
+              "signature": "3473542057"
             }
           },
           {
@@ -8157,6 +8437,13 @@
           },
           {
             "$": {
+              "imageName": "ZwiftAcademyRun2021_thumb",
+              "name": "ZA Run Team Shorts 2021",
+              "signature": "3809167284"
+            }
+          },
+          {
+            "$": {
               "imageName": "TealPink2020_thumb",
               "name": "April Fools",
               "signature": "3860420424"
@@ -8174,6 +8461,13 @@
               "imageName": "Shorts05",
               "name": "Zwift Running Shorts 5",
               "signature": "4098921214"
+            }
+          },
+          {
+            "$": {
+              "imageName": "PrideOn2021_thumb",
+              "name": "2021 Pride On Run Shorts",
+              "signature": "4231189810"
             }
           },
           {
@@ -8525,6 +8819,13 @@
           },
           {
             "$": {
+              "imageName": "Wheel_ZwiftPlain",
+              "name": "Zwift Plain",
+              "signature": "1324365960"
+            }
+          },
+          {
+            "$": {
               "imageName": "Wheel_ZwiftBW",
               "name": "Zwift Zwift Trike",
               "signature": "1361038541"
@@ -8540,7 +8841,7 @@
           {
             "$": {
               "imageName": "Wheel_Zipp353",
-              "name": "Zipp Zipp 353 NSW",
+              "name": "Zipp 353 NSW",
               "signature": "1544928391"
             }
           },
@@ -8598,6 +8899,13 @@
               "imageName": "Wheel_CampagnoloHigh",
               "name": "Zwift 50mm Carbon",
               "signature": "2060527008"
+            }
+          },
+          {
+            "$": {
+              "imageName": "Wheel_RovalRapide",
+              "name": "Roval Rapide CLX",
+              "signature": "2181416413"
             }
           },
           {
@@ -8762,6 +9070,13 @@
           },
           {
             "$": {
+              "imageName": "Wheel_ZwiftPlain",
+              "name": "Zwift Plain",
+              "signature": "705669234"
+            }
+          },
+          {
+            "$": {
               "imageName": "Wheel_Zipp858",
               "name": "Zipp 858",
               "signature": "881139533"
@@ -8861,7 +9176,7 @@
           {
             "$": {
               "imageName": "Wheel_Zipp353",
-              "name": "Zipp Zipp 353 NSW",
+              "name": "Zipp 353 NSW",
               "signature": "2019751723"
             }
           },
@@ -8912,6 +9227,13 @@
               "imageName": "Wheel_ZwiftSafety",
               "name": "Zwift Safety",
               "signature": "3473846672"
+            }
+          },
+          {
+            "$": {
+              "imageName": "Wheel_RovalRapide",
+              "name": "Roval Rapide CLX",
+              "signature": "3548735686"
             }
           },
           {
@@ -9658,6 +9980,14 @@
           },
           {
             "$": {
+              "isTT": "0",
+              "modelYear": "2021",
+              "name": "Bridgestone BridgestoneOVS2021",
+              "signature": "3928995152"
+            }
+          },
+          {
+            "$": {
               "isTT": "1",
               "modelYear": "2015",
               "name": "Cervelo P5",
@@ -9894,6 +10224,12 @@
             "$": {
               "name": "Trek Emonda-Emonda SLR",
               "signature": "887696647"
+            }
+          },
+          {
+            "$": {
+              "name": "Bridgestone BridgestoneOVS2021-base",
+              "signature": "910919184"
             }
           },
           {
@@ -10859,9 +11195,23 @@
           },
           {
             "$": {
+              "imageName": "SocksZwiftAcademyRun2021",
+              "name": "ZA Run Team Socks 2021",
+              "signature": "2446251922"
+            }
+          },
+          {
+            "$": {
               "imageName": "SolidBlack",
               "name": "Solid Black",
               "signature": "2465867988"
+            }
+          },
+          {
+            "$": {
+              "imageName": "Socks_PrideOn2021",
+              "name": "2021 Pride On Socks",
+              "signature": "2510625778"
             }
           },
           {
@@ -11627,6 +11977,13 @@
           },
           {
             "$": {
+              "imageName": "ProtonKaskINEOS2021",
+              "name": "Protone INEOS Grenadier",
+              "signature": "3438211262"
+            }
+          },
+          {
+            "$": {
               "imageName": "SpecializedZA2021",
               "name": "ZA Tri Team Helmet 2020",
               "signature": "3633294398"
@@ -11686,6 +12043,13 @@
               "imageName": "CyclingCapZwiftAcademyWomen2020_thumb",
               "name": "Zwift Academy 2020 Womens",
               "signature": "4252145787"
+            }
+          },
+          {
+            "$": {
+              "imageName": "RunnerCapZwiftAcademyRun2021_thumb",
+              "name": "ZA Run Team Hat 2021",
+              "signature": "4291019094"
             }
           }
         ]
@@ -12693,6 +13057,62 @@
               "imageName": "RouteComplete",
               "name": "TWO BRIDGES LOOP",
               "signature": "149"
+            }
+          },
+          {
+            "$": {
+              "imageName": "RouteComplete",
+              "name": "SEA TO TREE",
+              "signature": "150"
+            }
+          },
+          {
+            "$": {
+              "imageName": "RouteComplete",
+              "name": "KAPPA QUEST",
+              "signature": "151"
+            }
+          },
+          {
+            "$": {
+              "imageName": "RouteComplete",
+              "name": "CHAIN CHOMPER",
+              "signature": "152"
+            }
+          },
+          {
+            "$": {
+              "imageName": "RouteComplete",
+              "name": "COUNTRYSIDE TOUR",
+              "signature": "153"
+            }
+          },
+          {
+            "$": {
+              "imageName": "RouteComplete",
+              "name": "FLATLAND LOOP",
+              "signature": "154"
+            }
+          },
+          {
+            "$": {
+              "imageName": "RouteComplete",
+              "name": "TWO VILLAGE LOOP",
+              "signature": "155"
+            }
+          },
+          {
+            "$": {
+              "imageName": "RouteComplete",
+              "name": "SPIRIT FOREST",
+              "signature": "156"
+            }
+          },
+          {
+            "$": {
+              "imageName": "RouteComplete",
+              "name": "THREE VILLAGE LOOP",
+              "signature": "157"
             }
           }
         ]
