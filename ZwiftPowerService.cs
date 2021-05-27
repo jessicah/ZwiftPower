@@ -70,6 +70,20 @@ namespace ZwiftPower
 				}
 				catch (HttpRequestException exn)
 				{
+					if (!loggedIn && exn.StatusCode == System.Net.HttpStatusCode.RedirectKeepVerb)
+					{
+						throw new Exception("Base URL needs to be updated", exn);
+					}
+
+					if (!loggedIn && exn.StatusCode == System.Net.HttpStatusCode.Forbidden)
+					{
+						await Login();
+
+						loggedIn = true;
+
+						continue;
+					}
+
 					lastException = exn;
 
 					// maybe ZwiftPower is down, wait for a minute
@@ -98,7 +112,7 @@ namespace ZwiftPower
 				{ "username", _config["Zwiftpower:Username"] },
 				{ "password", _config["Zwiftpower:Password"] },
 				{ "redirect", "./index.php" },
-				{ "login", "" }
+				{ "login", "Login" }
 			});
 
 			using var indexPage = await _httpClient.PostAsync("/ucp.php?mode=login", content);
