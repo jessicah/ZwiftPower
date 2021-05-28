@@ -10,17 +10,17 @@ namespace ZwiftPower
 	{
 		public static Dictionary<string, int> Ids = new Dictionary<string, int>
 		{
-			["Watopia"] = 1,
-			["Richmond"] = 2,
-			["London"] = 3,
-			["New York"] = 4,
-			["Innsbruck"] = 5,
-			["Bologna"] = 6,
-			["Yorkshire"] = 7,
-			["Crit City"] = 8,
-			["Makura Islands"] = 9,
-			["France"] = 10,
-			["Paris"] = 11
+			["WATOPIA"] = 1,
+			["RICHMOND"] = 2,
+			["LONDON"] = 3,
+			["NEWYORK"] = 4,
+			["INNSBRUCK"] = 5,
+			["BOLOGNATT"] = 6,
+			["YORKSHIRE"] = 7,
+			["CRITCITY"] = 8,
+			["MAKURAISLANDS"] = 9,
+			["FRANCE"] = 10,
+			["PARIS"] = 11
 		};
 
 		public static Dictionary<int, string> Names = new Dictionary<int, string>
@@ -37,5 +37,25 @@ namespace ZwiftPower
 			[10] = "France",
 			[11] = "Paris"
 		};
+
+		public static Dictionary<string, int> ReverseNames = new Dictionary<string, int>
+		{
+			["Watopia"] = 1,
+			["Richmond"] = 2,
+			["London"] = 3,
+			["New York"] = 4,
+			["Innsbruck"] = 5,
+			["Bologna"] = 6,
+			["Yorkshire"] = 7,
+			["Crit City"] = 8,
+			["Makura Islands"] = 9,
+			["France"] = 10,
+			["Paris"] = 11
+		};
+
+		public static int GetId(string world)
+		{
+			return Ids[world.ToUpper()];
+		}
 	}
 }

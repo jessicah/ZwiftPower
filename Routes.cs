@@ -16,10 +16,10 @@ namespace ZwiftPower
 
 		public static Dictionary<uint, string> Links;
 
-		public static Dictionary<string, Dictionary<uint, string>> NamesByWorld;
+		public static Dictionary<int, Dictionary<uint, string>> NamesByWorld;
 
-		public static IEnumerable<(uint Id, string Name)> ForWorld(string world)
-			=> NamesByWorld[world.ToUpper()].Select(item => (Id: item.Key, Name: item.Value));
+		public static IEnumerable<(uint Id, string Name)> ForWorld(int worldId)
+			=> NamesByWorld[worldId].Select(item => (Id: item.Key, Name: item.Value));
 
 		static Routes()
 		{
@@ -57,10 +57,12 @@ namespace ZwiftPower
 					Ids.Add(name, key);
 					Names.Add(key, name);
 
-					if (NamesByWorld.TryGetValue(map.ToUpper(), out var mappings) == false)
+					var worldId = Worlds.GetId(map);
+
+					if (NamesByWorld.TryGetValue(worldId, out var mappings) == false)
 					{
 						mappings = new();
-						NamesByWorld[map.ToUpper()] = mappings;
+						NamesByWorld[worldId] = mappings;
 					}
 
 					mappings.Add(key, name);
