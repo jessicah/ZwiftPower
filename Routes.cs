@@ -26,7 +26,7 @@ namespace ZwiftPower
 			// Fetched from https://www.zwift.com/zwift-web-pages/gamedictionary
 			HttpClient httpClient = new HttpClient();
 			var task = httpClient.GetFromJsonAsync<Dictionary<string, JsonElement>>("https://www.zwift.com/zwift-web-pages/gamedictionary");
-			task.Wait();
+			task.RunSynchronously();
 			var dictionary = task.Result;
 
 			var gameDictionary = dictionary["GameDictionary"];
