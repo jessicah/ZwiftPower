@@ -335,7 +335,7 @@ namespace ZwiftPower
 		int div,
 		int divw,
 		string email,
-		int age,
+		string age,
 		string aid,
 		int climbed,
 		int distance,
@@ -451,7 +451,7 @@ namespace ZwiftPower
 	}
 
 	public record SegmentRider(
-		int age,
+		string age,
 		int div,
 		int divw,
 		float elapsed,
