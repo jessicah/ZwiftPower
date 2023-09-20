@@ -21,6 +21,7 @@ namespace ZwiftPower
 		public static IEnumerable<(uint Id, string Name)> ForWorld(int worldId)
 			=> NamesByWorld[worldId].Select(item => (Id: item.Key, Name: item.Value));
 
+		/*
 		static Routes()
 		{
 			// Fetched from https://www.zwift.com/zwift-web-pages/gamedictionary
@@ -224,6 +225,6 @@ namespace ZwiftPower
 
 				Console.WriteLine($"Missing ZwiftInsider link for route {kv.Key}: {kv.Value}");
 			}
-		}
+		}*/
 	}
 }
