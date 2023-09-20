@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace ZwiftPower
 {
@@ -27,6 +28,18 @@ namespace ZwiftPower
 			}
 
 			return cat;
+		}
+
+		public static int AsInt(string category)
+		{
+			return FromString(category) switch
+			{
+				Category.A => 0,
+				Category.B => 1,
+				Category.C => 2,
+				Category.D => 3,
+				_ => throw new InvalidEnumArgumentException()
+			};
 		}
 
 		public static Category FromDivision(int division)
