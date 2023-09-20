@@ -16,7 +16,11 @@ namespace ZwiftPower
 		private readonly HttpClient _httpClient;
 		private readonly JsonSerializerOptions _options;
 		private readonly IConfiguration _config;
-		
+
+		private string _accessToken;
+		//private string _refreshToken;
+		//private int _refreshExpiresIn;
+
 		public HttpClient Client { get => _httpClient; }
 
 		public ZwiftPowerService(HttpClient httpClient, IConfiguration configuration)
@@ -111,12 +115,26 @@ namespace ZwiftPower
 			{
 				{ "username", _config["Zwiftpower:Username"] },
 				{ "password", _config["Zwiftpower:Password"] },
-				{ "redirect", "./index.php" },
-				{ "login", "Login" }
+				{ "client_id", "Zwift Game Client" },
+				{ "grant_type", "password" }
 			});
 
-			using var indexPage = await _httpClient.PostAsync("/ucp.php?mode=login", content);
+			var httpClient = new HttpClient();
+
+			using var response = await httpClient.PostAsync("https://secure.zwift.com/auth/realms/zwift/protocol/openid-connect/token", content);
+
+			var loginResponse = await response.Content.ReadFromJsonAsync<LoginResponse>();
+
+			_accessToken = loginResponse.access_token;
+
+			_httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", this._accessToken);
+
+			await _httpClient.GetAsync("/ucp.php?mode=login&login=external&oauth_service=oauthzpsso");
 		}
+
+		public string BearerToken() { return _accessToken; }
+
+		public record LoginResponse(string access_token, string refresh_token, int expires_in, int refresh_expires_in, string session_state);
 
 		internal class Data<T>
 		{
