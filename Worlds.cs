@@ -18,7 +18,7 @@ namespace ZwiftPower
 			["BOLOGNATT"] = 6,
 			["YORKSHIRE"] = 7,
 			["CRITCITY"] = 8,
-			["MAKURAISLANDS"] = 9,
+			["MAKURIISLANDS"] = 9,
 			["FRANCE"] = 10,
 			["PARIS"] = 11
 		};
@@ -33,7 +33,7 @@ namespace ZwiftPower
 			[6] = "Bologna",
 			[7] = "Yorkshire",
 			[8] = "Crit City",
-			[9] = "Makura Islands",
+			[9] = "Makuri Islands",
 			[10] = "France",
 			[11] = "Paris"
 		};
@@ -48,7 +48,7 @@ namespace ZwiftPower
 			["Bologna"] = 6,
 			["Yorkshire"] = 7,
 			["Crit City"] = 8,
-			["Makura Islands"] = 9,
+			["Makuri Islands"] = 9,
 			["France"] = 10,
 			["Paris"] = 11
 		};
